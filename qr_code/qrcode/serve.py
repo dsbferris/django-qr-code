@@ -64,11 +64,9 @@ def _make_random_token() -> str:
     return get_random_string(url_protection_options[constants.TOKEN_LENGTH])
 
 
-_RANDOM_TOKEN = _make_random_token()
-
-
 def get_qr_url_protection_signed_token(qr_code_options: QRCodeOptions):
     """Generate a signed token to handle view protection."""
+    _RANDOM_TOKEN = _make_random_token()
     url_protection_options = get_url_protection_options()
     signer = Signer(key=url_protection_options[constants.SIGNING_KEY], salt=url_protection_options[constants.SIGNING_SALT])
     token = signer.sign(get_qr_url_protection_token(qr_code_options, _RANDOM_TOKEN))
